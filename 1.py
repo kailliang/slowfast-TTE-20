@@ -22,13 +22,13 @@ from torch import nn
 from torchvision.transforms import Compose, Lambda, RandomCrop, RandomHorizontalFlip, CenterCrop
 
 side_size = 336
-max_size = 336
+max_size = 368
 mean = [0.45, 0.45, 0.45]
 std = [0.225, 0.225, 0.225]
 crop_size = 336
 num_frames = 32
-sampling_rate = 50/32
-frames_per_second = 10
+sampling_rate = 1
+frames_per_second = 32/5
 clip_duration = (num_frames * sampling_rate) / frames_per_second
 num_classes = 3
 #checkpoint_path = '/kaggle/working/SLOWFAST_8x8_R50.pyth'
@@ -36,7 +36,7 @@ num_classes = 3
 data_root = "/home/k/kai/data/TTE_20"
 batch_size = 10
 epochs = 50
-save_root = '/home/k/kai/CheckPoints/TTE_20_Batch_10_022'
+save_root = '/home/k/kai/CheckPoints/TTE_20_Batch_10_02'
 
 # for reproducibility
 random.seed(1)
@@ -67,10 +67,14 @@ class PackPathway(nn.Module):
 
 
 train_transform = ApplyTransformToKey(key="video", transform=Compose(
-    [UniformTemporalSubsample(num_frames), Lambda(lambda x: x / 255.0), Normalize(mean, std), ShortSideScale(size=side_size), PackPathway()]))
+    [UniformTemporalSubsample(num_frames), Lambda(lambda x: x / 255.0), Normalize(mean, std), RandomRotation([-5,5]), 
+     RandomShortSideScale(min_size=side_size, max_size=max_size), CenterCropVideo(crop_size), 
+     ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5), PackPathway()]))
 
 test_transform = ApplyTransformToKey(key="video", transform=Compose(
-    [UniformTemporalSubsample(num_frames), Lambda(lambda x: x / 255.0), Normalize(mean, std), ShortSideScale(size=side_size), PackPathway()]))
+    [UniformTemporalSubsample(num_frames), Lambda(lambda x: x / 255.0), Normalize(mean, std), RandomRotation([-5,5]), 
+     RandomShortSideScale(min_size=side_size, max_size=max_size), CenterCropVideo(crop_size), 
+     ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5), PackPathway()]))
 
 
 
