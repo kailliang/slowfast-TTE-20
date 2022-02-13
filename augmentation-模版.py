@@ -68,12 +68,12 @@ class PackPathway(nn.Module):
 
 train_transform = ApplyTransformToKey(key="video", transform=Compose(
     [UniformTemporalSubsample(num_frames), Lambda(lambda x: x / 255.0), Normalize(mean, std), RandomRotation([-5,5]), 
-     RandomShortSideScale(min_size=side_size, max_size=max_size), CenterCropVideo(crop_size), 
+     RandomShortSideScale(min_size=side_size, max_size=max_size), CenterCrop(crop_size), 
      ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5), PackPathway()]))
 
 test_transform = ApplyTransformToKey(key="video", transform=Compose(
     [UniformTemporalSubsample(num_frames), Lambda(lambda x: x / 255.0), Normalize(mean, std), RandomRotation([-5,5]), 
-     RandomShortSideScale(min_size=side_size, max_size=max_size), CenterCropVideo(crop_size), 
+     RandomShortSideScale(min_size=side_size, max_size=max_size), CenterCrop(crop_size), 
      ColorJitter(brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5), PackPathway()]))
 
 
