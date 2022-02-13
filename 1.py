@@ -17,7 +17,7 @@ from tqdm import tqdm
 #from utils import train_transform, test_transform, clip_duration, num_classes
 
 from pytorchvideo.transforms import ApplyTransformToKey, UniformTemporalSubsample, RandomShortSideScale, \
-    ShortSideScale, Normalize, RandomShortSideScale, ColorJitter, RandomRotation
+    ShortSideScale, Normalize
 from torch import nn
 from torchvision.transforms import Compose, Lambda, RandomCrop, CenterCrop
 
