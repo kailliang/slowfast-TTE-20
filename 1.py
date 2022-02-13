@@ -33,7 +33,7 @@ clip_duration = (num_frames * sampling_rate) / frames_per_second
 num_classes = 3
 #checkpoint_path = '/kaggle/working/SLOWFAST_8x8_R50.pyth'
 
-data_root = "/home/k/kai/data/TTE_20"
+data_root = "/home/k/kai/data/TTE-20"
 batch_size = 10
 epochs = 50
 save_root = '/home/k/kai/CheckPoints/TTE_20_Batch_10_02'
